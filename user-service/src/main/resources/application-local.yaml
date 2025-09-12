@@ -1,0 +1,12 @@
+server:
+  port: 8082
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/smart-campus?useSSL=false&serverTimezone=UTC
+    username: root
+    password: Csy10170655
+    driver-class-name: com.mysql.cj.jdbc.Driver
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  #mybatis开启驼峰映射
+
