@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.course.mapper.CourseMapper">
+    <select id="getCoursesByStudentId"  resultType="map">
+        SELECT s.name         AS student_name,
+               c.course_no    AS course_no,
+               c.name         AS course_name,
+               t.name         AS teacher_name,
+               t.phone        AS teacher_phone,
+               t.email        AS teacher_email
+        FROM student s
+                 JOIN course_selection sc ON s.student_id = sc.student_id
+                 JOIN course c ON sc.course_id = c.course_id
+                 JOIN teacher t ON c.teacher_id = t.teacher_id
+        WHERE s.student_id = #{studentId}
+    </select>
+
+
+</mapper>

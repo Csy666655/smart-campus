@@ -2,12 +2,13 @@ package com.example.userservice.controller;
 
 import com.example.userservice.domain.dto.LoginDto;
 import com.example.userservice.domain.dto.RegisterDto;
+import com.example.userservice.domain.po.Student;
 import com.example.userservice.domain.po.User;
 import com.example.userservice.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import utils.Result;
+import com.common.utils.Result;
 
 @RestController
 @Slf4j
@@ -27,5 +28,10 @@ public class UserController {
     public Result Register(@RequestBody RegisterDto registerDto){
         log.info("用户注册：{}",registerDto);
         return userService.regieter(registerDto);
+    }
+    @PostMapping("/bind")
+    public Result bindStudent(@RequestBody Student student){
+        log.info("用户绑定学生信息");
+        return userService.bindStudentInfo(student);
     }
 }

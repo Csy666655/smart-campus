@@ -2,17 +2,17 @@ package com.example.userservice.service.impl;
 
 import com.example.userservice.domain.dto.LoginDto;
 import com.example.userservice.domain.dto.RegisterDto;
+import com.example.userservice.domain.po.Student;
 import com.example.userservice.domain.po.User;
 import com.example.userservice.mapper.UserMapper;
 import com.example.userservice.service.UserService;
 import com.example.userservice.utils.Constants;
 import com.example.userservice.utils.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import utils.Result;
+import com.common.utils.Result;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -34,6 +34,11 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserById();
     }
 
+    /**
+     * 用户登录
+     * @param loginDto
+     * @return
+     */
     @Override
     public Result login(LoginDto loginDto) {
         String userName = loginDto.getUserName();
@@ -45,7 +50,7 @@ public class UserServiceImpl implements UserService {
         boolean b = passwordEncoder.matches(password,user.getPassword());
         if(b){
             // 生成JWT token
-            String token = jwtUtil.generateToken((long) user.getId(), user.getUserName());
+            String token = jwtUtil.generateToken(user.getId(), user.getUserName());
             
             // 构建返回数据
             Map<String, Object> data = new HashMap<>();
@@ -60,6 +65,11 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * 用户注册
+     * @param registerDto
+     * @return
+     */
     @Override
     public Result regieter(RegisterDto registerDto) {
         log.info("用户注册："+registerDto);
@@ -80,5 +90,11 @@ public class UserServiceImpl implements UserService {
         user.setRole(Constants.ROLE_STUDENT);
         userMapper.insert(user);
         return Result.success("注册成功");
+    }
+
+    @Override
+    public Result bindStudentInfo(Student student) {
+        //TODO:绑定学号，获取返回的id，在向user表中添加学号id;
+        return null;
     }
 }

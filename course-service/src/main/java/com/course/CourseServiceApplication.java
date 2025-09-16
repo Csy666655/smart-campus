@@ -1,15 +1,13 @@
-package com.example.userservice;
+package com.course;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableFeignClients  //启动
-@SpringBootApplication
-public class UserServiceApplication {
-
+@SpringBootApplication(scanBasePackages = {"com.course", "com.common"})
+public class CourseServiceApplication {
     public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
+        SpringApplication.run(CourseServiceApplication.class, args);
     }
-
 }
